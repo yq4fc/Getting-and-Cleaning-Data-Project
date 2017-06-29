@@ -29,13 +29,6 @@ testData = cbind(yTest,subjectTest,xTest)
 AllData = rbind(trainingData,testData)
 
 # 2. Extract only the measurements on the mean and standard deviation for each measurement. 
-
-# Create a logicalVector that contains TRUE values for the ID, mean() & stddev() columns and FALSE for others
-#logicalVector = (grepl("activity..",colNames) | grepl("subject..",colNames) | grepl("-mean..",colNames) & !grepl("-meanFreq..",colNames) & !grepl("mean..-",colNames) | grepl("-std..",colNames) & !grepl("-std()..-",colNames))
-
-# Subset finalData table based on the logicalVector to keep only desired columns
-#finalData = finalData[logicalVector==TRUE]
-
 colNames <- colnames(AllData)
 meanAndstd <- (grepl("activityId" , colNames) | 
                  grepl("subjectId" , colNames) | 
