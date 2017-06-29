@@ -26,20 +26,23 @@ testData = cbind(yTest,subjectTest,xTest)
 
 
 # Combine training and test data to create a final data set
-finalData = rbind(trainingData,testData)
-
-# Create a vector for the column names from the finalData, which will be used
-# to select the desired mean() & stddev() columns
-colNames  = colnames(finalData)
+AllData = rbind(trainingData,testData)
 
 # 2. Extract only the measurements on the mean and standard deviation for each measurement. 
 
 # Create a logicalVector that contains TRUE values for the ID, mean() & stddev() columns and FALSE for others
-logicalVector = (grepl("activity..",colNames) | grepl("subject..",colNames) | grepl("-mean..",colNames) & !grepl("-meanFreq..",colNames) & !grepl("mean..-",colNames) | grepl("-std..",colNames) & !grepl("-std()..-",colNames))
+#logicalVector = (grepl("activity..",colNames) | grepl("subject..",colNames) | grepl("-mean..",colNames) & !grepl("-meanFreq..",colNames) & !grepl("mean..-",colNames) | grepl("-std..",colNames) & !grepl("-std()..-",colNames))
 
 # Subset finalData table based on the logicalVector to keep only desired columns
-finalData = finalData[logicalVector==TRUE]
+#finalData = finalData[logicalVector==TRUE]
 
+colNames <- colnames(AllData)
+meanAndstd <- (grepl("activityId" , colNames) | 
+                 grepl("subjectId" , colNames) | 
+                 grepl("mean.." , colNames) | 
+                 grepl("std.." , colNames) 
+)
+finalData <- AllData[ , meanAndstd== TRUE]
 # 3. Use descriptive activity names to name the activities in the data set
 
 # Merge the finalData set with the acitivityType table to include descriptive activity names
